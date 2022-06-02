@@ -1,0 +1,48 @@
+version: "3.9"
+
+services:
+  rest-api:
+    image: "rest-api:${VERSION_REST_API}"
+    build:
+      context: .
+      dockerfile: rest_api.Dockerfile
+      args:
+        - PORT=8000
+    # extra_hosts:
+    #   - "localhost:192.168.2.XX"
+    volumes:
+      - ./test:/home/pipeline/code/test
+    env_file:
+      - ./rest-api/rest_api.env
+    # for the purpose of testing the API the container is exposed to DMZ
+    ports:
+      - "${REST_API_PORT}:8000"
+    networks:
+      - internal-net
+      - dmz-net
+      - qa-streaming-pipeline-challenge_default
+    restart: on-failure
+
+  dashboard:
+    image: "dashboard:${VERSION_DASHBOARD}"
+    build:
+      context: .
+      dockerfile: dashboard.Dockerfile
+      args:
+        - PORT=8085
+    env_file:
+      - ./dashboard/dashboard.env
+    ports:
+      - "${DASHBOARD_PORT}:8085"
+    networks:
+      - internal-net
+      - dmz-net
+    restart: on-failure
+
+networks:
+  internal-net:
+    driver: bridge
+  dmz-net:
+    driver: bridge
+  qa-streaming-pipeline-challenge_default:
+    external: true
