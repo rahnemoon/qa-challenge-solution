@@ -36,6 +36,7 @@ DATA_REGRE = deque(maxlen=150)
 
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+app.title = "Training Dashboard"
 server = app.server
 
 app.layout = html.Div(
