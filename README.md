@@ -30,6 +30,7 @@ The REST API of the system is developed by using **FastAPI** and **SQLAlchemy**,
 
 
 - The second part of the challenge is solved and explained in Jupiter Notebook named `variable_analysis.ipynb`. The regression model is included in the challenge code even though it may not be the best model to use.
+	_**Note:** The outputs of the Jupiter Notebook are removed because of the file size problem. Therefore, please run the notebook from the start if you are interested to see the result._
 
 
 ## Local Deployment
